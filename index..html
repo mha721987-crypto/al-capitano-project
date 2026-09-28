@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أكاديميه الكابيتانو لكرة القدم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --pitch-deep:#122A1D;
+    --grass:#2B6844;
+    --bright:#3E8E5A;
+    --chalk:#F5F3EA;
+    --gold:#D9A441;
+    --gold-dim:#B98937;
+    --ink:#132018;
+    --line: rgba(245,243,234,.32);
+    --radius-flag: 0 22px 0 22px;
+    --maxw: 1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    color:var(--ink);
+    background:var(--chalk);
+    line-height:1.7;
+    font-size:16px;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Cairo', sans-serif;
+    line-height:1.25;
+    color:var(--pitch-deep);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  section{position:relative;}
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ===================== NAV ===================== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--pitch-deep);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand svg{width:38px; height:38px; flex-shrink:0;}
+  .brand span{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:1.25rem;
+    color:var(--chalk);
+    letter-spacing:.3px;
+  }
+  nav.links{
+    display:flex; gap:30px;
+  }
+  nav.links a{
+    color:var(--chalk);
+    font-weight:500;
+    font-size:.95rem;
+    padding:6px 2px;
+    border-bottom:2px solid transparent;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  nav.links a:hover, nav.links a:focus-visible{
+    border-color:var(--gold);
+    color:var(--gold);
+  }
+  .nav-cta{
+    background:var(--gold);
+    color:var(--pitch-deep) !important;
+    padding:9px 20px;
+    font-weight:600;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    border-bottom:none !important;
+  }
+  .nav-cta:hover{ background:#e8b458; }
+
+  .burger{
+    display:none;
+    flex-direction:column; gap:5px;
+    background:none; border:none; cursor:pointer;
+    padding:6px;
+  }
+  .burger span{
+    width:26px; height:2px; background:var(--chalk);
+    display:block;
+  }
+
+  @media (max-width:860px){
+    nav.links{
+      position:absolute; inset-inline:0; top:100%;
+      background:var(--pitch-deep);
+      flex-direction:column;
+      padding:10px 28px 22px;
+      gap:14px;
+      border-bottom:1px solid var(--line);
+      display:none;
+    }
+    nav.links.open{display:flex;}
+    .burger{display:flex;}
+  }
+
+  /* ===================== HERO ===================== */
+  .hero{
+    background:
+      radial-gradient(circle at 50% 120%, rgba(255,255,255,.05), transparent 60%),
+      linear-gradient(180deg, var(--pitch-deep) 0%, var(--grass) 100%);
+    color:var(--chalk);
+    padding:90px 0 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .pitch-lines{
+    position:absolute; inset:0; z-index:0;
+    opacity:.16;
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative; z-index:1;
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:40px;
+    align-items:center;
+    padding-bottom:70px;
+  }
+  .hero h1{
+    color:var(--chalk);
+    font-size:clamp(2.3rem, 4.6vw, 3.6rem);
+    font-weight:900;
+    max-width:14ch;
+    animation:riseIn .7s ease both;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--gold);
+  }
+  .hero p.lead{
+    margin-top:20px;
+    max-width:46ch;
+    font-size:1.08rem;
+    color:rgba(245,243,234,.85);
+    animation:riseIn .7s .1s ease both;
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .hero-ctas{
+    margin-top:32px;
+    display:flex; gap:16px; flex-wrap:wrap;
+    animation:riseIn .7s .2s ease both;
+  }
+  .btn{
+    display:inline-block;
+    padding:13px 28px;
+    font-weight:700;
+    font-size:.98rem;
+    cursor:pointer;
+    border:2px solid transparent;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--pitch-deep);
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  }
+  .btn-primary:hover{background:#e8b458;}
+  .btn-outline{
+    border-color:var(--chalk);
+    color:var(--chalk);
+    background:transparent;
+  }
+  .btn-outline:hover{ background:rgba(245,243,234,.1); }
+
+  .hero-badge{
+    justify-self:center;
+    width:min(300px, 90%);
+    aspect-ratio:1;
+    border:2px dashed var(--line);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .hero-badge svg{width:62%; height:62%;}
+
+  /* stat band */
+  .stats{
+    position:relative; z-index:1;
+    background:rgba(0,0,0,.18);
+    border-top:1px solid var(--line);
+  }
+  .stats .wrap{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    text-align:center;
+    padding:26px 28px;
+  }
+  .stats .stat{
+    padding:6px 14px;
+    border-inline-start:1px solid var(--line);
+  }
+  .stats .stat:first-child{border-inline-start:none;}
+  .stats .stat b{
+    display:block;
+    font-family:'Cairo',sans-serif;
+    font-size:clamp(1.5rem,2.6vw,2.1rem);
+    color:var(--gold);
+    font-weight:800;
+  }
+  .stats .stat span{
+    font-size:.85rem;
+    color:rgba(245,243,234,.75);
+  }
+
+  @media (max-width:860px){
+    .hero-inner{grid-template-columns:1fr; text-align:center;}
+    .hero p.lead{margin-inline:auto;}
+    .hero-ctas{justify-content:center;}
+    .hero-badge{margin-top:10px;}
+    .stats .wrap{grid-template-columns:repeat(2,1fr); row-gap:20px;}
+    .stats .stat:nth-child(3){border-inline-start:none;}
+  }
+
+  /* ===================== SECTION HEADS ===================== */
+  .section-head{
+    max-width:56ch;
+    margin-bottom:48px;
+  }
+  .section-head .kicker{
+    color:var(--gold-dim);
+    font-weight:700;
+    font-size:.92rem;
+    display:block;
+    margin-bottom:8px;
+  }
+  .section-head h2{
+    font-size:clamp(1.6rem, 3vw, 2.2rem);
+  }
+  .section-head p{
+    margin-top:14px;
+    color:#41513f;
+    font-size:1rem;
+  }
+
+  /* ===================== PROGRAMS (pitch thirds) ===================== */
+  .programs{ padding:90px 0 100px; background:var(--chalk); }
+
+  .thirds{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border:2px solid var(--pitch-deep);
+  }
+  .third{
+    padding:34px 28px 30px;
+    position:relative;
+    color:var(--chalk);
+  }
+  .third:not(:last-child){ border-inline-end:2px dashed rgba(245,243,234,.4); }
+  .third.defense{ background:var(--pitch-deep); }
+  .third.midfield{ background:var(--grass); }
+  .third.attack{ background:var(--bright); }
+
+  .third .stage{
+    font-family:'Cairo',sans-serif;
+    font-weight:800;
+    font-size:.85rem;
+    color:var(--gold);
+    display:block;
+    margin-bottom:6px;
+  }
+  .third h3{
+    color:var(--chalk);
+    font-size:1.35rem;
+    margin-bottom:6px;
+  }
+  .third .age{
+    display:inline-block;
+    font-size:.85rem;
+    font-weight:600;
+    color:rgba(245,243,234,.8);
+    margin-bottom:16px;
+  }
+  .third ul{ margin-top:16px; }
+  .third li{
+    font-size:.92rem;
+    color:rgba(245,243,234,.9);
+    padding-inline-start:18px;
+    position:relative;
+    margin-bottom:9px;
+  }
+  .third li::before{
+    content:"";
+    position:absolute; inset-inline-start:0; top:9px;
+    width:8px; height:2px;
+    background:var(--gold);
+  }
+
+  @media (max-width:860px){
+    .thirds{grid-template-columns:1fr;}
+    .third:not(:last-child){ border-inline-end:none; border-bottom:2px dashed rgba(245,243,234,.4); }
+  }
+
+  /* ===================== WHY US ===================== */
+  .why{ padding:90px 0 100px; background:#0F2317; color:var(--chalk); }
+  .why .section-head h2{ color:var(--chalk); }
+  .why .section-head p{ color:rgba(245,243,234,.72); }
+  .why .section-head .kicker{ color:var(--gold); }
+
+  .feature-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+  }
+  .feature{
+    display:flex; gap:18px;
+    padding:26px 6px;
+    border-top:1px solid var(--line);
+  }
+  .feature:nth-child(1),.feature:nth-child(2){ border-top:none; }
+  .feature:nth-child(odd){ padding-inline-end:34px; }
+  .feature:nth-child(even){
+    padding-inline-start:34px;
+    border-inline-start:1px solid var(--line);
+  }
+  .feature .icn{
+    width:44px; height:44px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--gold);
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+  .feature .icn svg{width:22px; height:22px; stroke:var(--gold);}
+  .feature h4{ color:var(--chalk); font-size:1.05rem; margin-bottom:6px; }
+  .feature p{ color:rgba(245,243,234,.7); font-size:.92rem; }
+
+  @media (max-width:760px){
+    .feature-list{grid-template-columns:1fr;}
+    .feature:nth-child(even){ border-inline-start:none; padding-inline-start:6px; }
+    .feature:nth-child(odd){ padding-inline-end:6px; }
+    .feature:nth-child(2){ border-top:1px solid var(--line); }
+  }
+
+  /* ===================== COACHES ===================== */
+  .coaches{ padding:90px 0 100px; background:var(--chalk); }
+  .coach-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:34px;
+  }
+  .coach{
+    border-top:3px solid var(--gold);
+    padding-top:20px;
+  }
+  .avatar{
+    width:74px; height:74px;
+    background:var(--grass);
+    color:var(--chalk);
+    font-family:'Cairo',sans-serif;
+    font-weight:800;
+    font-size:1.3rem;
+    display:flex; align-items:center; justify-content:center;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    margin-bottom:16px;
+  }
+  .coach h4{ font-size:1.1rem; margin-bottom:2px; }
+  .coach .role{
+    color:var(--gold-dim);
+    font-weight:600;
+    font-size:.88rem;
+    display:block;
+    margin-bottom:10px;
+  }
+  .coach p{ color:#41513f; font-size:.92rem; }
+
+  @media (max-width:820px){
+    .coach-grid{grid-template-columns:1fr; gap:30px;}
+  }
+
+  /* ===================== TESTIMONIALS ===================== */
+  .testimonials{
+    padding:80px 0;
+    background:var(--grass);
+    color:var(--chalk);
+  }
+  .quote-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+  }
+  .quote{
+    padding-inline-start:22px;
+    border-inline-start:2px solid var(--gold);
+  }
+  .quote p{
+    font-size:.98rem;
+    color:rgba(245,243,234,.92);
+    margin-bottom:14px;
+  }
+  .quote .who{
+    font-weight:700;
+    font-size:.88rem;
+    color:var(--gold);
+  }
+  @media (max-width:860px){
+    .quote-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===================== REGISTER ===================== */
+  .register{
+    padding:90px 0 100px;
+    background:var(--chalk);
+  }
+  .register-box{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    border:2px solid var(--pitch-deep);
+  }
+  .register-info{
+    background:var(--pitch-deep);
+    color:var(--chalk);
+    padding:44px 36px;
+  }
+  .register-info h2{ color:var(--chalk); font-size:1.6rem; margin-bottom:14px; }
+  .register-info p{ color:rgba(245,243,234,.75); font-size:.94rem; margin-bottom:22px; }
+  .register-info ul li{
+    font-size:.9rem;
+    color:rgba(245,243,234,.85);
+    margin-bottom:10px;
+    padding-inline-start:16px;
+    position:relative;
+  }
+  .register-info ul li::before{
+    content:"";
+    position:absolute; inset-inline-start:0; top:9px;
+    width:7px; height:7px;
+    background:var(--gold);
+  }
+
+  form{
+    padding:44px 36px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  form .full{ grid-column:1 / -1; }
+  label{
+    font-size:.85rem;
+    font-weight:600;
+    display:block;
+    margin-bottom:6px;
+    color:var(--pitch-deep);
+  }
+  input, select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #c9cabf;
+    background:#fff;
+    font-family:inherit;
+    font-size:.94rem;
+    color:var(--ink);
+  }
+  input:focus, select:focus{
+    outline:2px solid var(--gold);
+    outline-offset:1px;
+    border-color:var(--gold);
+  }
+  form button{
+    grid-column:1 / -1;
+    justify-self:start;
+    margin-top:6px;
+  }
+  .form-msg{
+    grid-column:1 / -1;
+    font-size:.9rem;
+    font-weight:600;
+    color:var(--grass);
+    display:none;
+  }
+  .form-msg.show{ display:block; }
+
+  @media (max-width:900px){
+    .register-box{grid-template-columns:1fr;}
+    form{grid-template-columns:1fr;}
+  }
+
+  /* ===================== FOOTER ===================== */
+  footer{
+    background:var(--pitch-deep);
+    color:rgba(245,243,234,.8);
+    padding:60px 0 26px;
+  }
+  .foot-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:36px;
+    border-bottom:1px solid var(--line);
+  }
+  .foot-brand .brand span{ color:var(--chalk); }
+  .foot-brand p{
+    margin-top:14px;
+    font-size:.9rem;
+    max-width:32ch;
+    color:rgba(245,243,234,.65);
+  }
+  footer h5{
+    font-family:'Cairo',sans-serif;
+    color:var(--chalk);
+    font-size:1rem;
+    margin-bottom:16px;
+  }
+  footer ul li{ margin-bottom:10px; font-size:.92rem; }
+  footer ul li a:hover{ color:var(--gold); }
+  .bottom-bar{
+    padding-top:22px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size:.82rem;
+    color:rgba(245,243,234,.55);
+  }
+  @media (max-width:760px){
+    .foot-grid{grid-template-columns:1fr; gap:28px;}
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="brand">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 4L40 12V24C40 33 33 41 24 44C15 41 8 33 8 24V12L24 4Z" stroke="#D9A441" stroke-width="2"/>
+        <path d="M24 14L18 24L24 34L30 24L24 14Z" fill="#D9A441"/>
+      </svg>
+      <span>أكاديمية الكابيتانو</span>
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#home">الرئيسية</a>
+      <a href="#programs">البرامج</a>
+      <a href="#why">لماذا نحن</a>
+      <a href="#coaches">المدربون</a>
+      <a href="#testimonials">آراء الأهالي</a>
+      <a href="#register" class="nav-cta">سجّل ابنك الآن</a>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="فتح القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <svg class="pitch-lines" viewBox="0 0 1200 700" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="600" cy="640" r="180" stroke="#F5F3EA" stroke-width="2" fill="none"/>
+    <line x1="0" y1="460" x2="1200" y2="460" stroke="#F5F3EA" stroke-width="2"/>
+    <rect x="470" y="460" width="260" height="90" stroke="#F5F3EA" stroke-width="2" fill="none"/>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <div>
+      <h1>نبني اللاعب قبل أن نبني <em>البطل</em></h1>
+      <p class="lead">أكاديمية الصقور لكرة القدم تدرّب الأعمار من 6 إلى 17 سنة على أسس فنية وبدنية وأخلاقية واضحة، بإشراف مدربين حاصلين على تراخيص احترافية.</p>
+      <div class="hero-ctas">
+        <a href="#register" class="btn btn-primary">سجّل ابنك الآن</a>
+        <a href="#programs" class="btn btn-outline">تعرّف على البرامج</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 8L88 26V52C88 70 71 85 50 92C29 85 12 70 12 52V26L50 8Z" stroke="#D9A441" stroke-width="2.5"/>
+        <path d="M50 30L38 50L50 70L62 50L50 30Z" fill="#D9A441"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="wrap">
+      <div class="stat"><b>450+</b><span>لاعب مسجّل</span></div>
+      <div class="stat"><b>12</b><span>مدرب مرخّص</span></div>
+      <div class="stat"><b>8</b><span>بطولات محلية</span></div>
+      <div class="stat"><b>15</b><span>عامًا من الخبرة</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">مسار التدريب</span>
+      <h2>ثلاث مراحل، مثل ثلث الملعب</h2>
+      <p>يتدرّج كل لاعب عبر ثلاث مراحل عمرية مرتبطة بمهارات محددة، تمامًا كما ينقسم الملعب إلى ثلاثة أثلاث وظيفية.</p>
+    </div>
+
+    <div class="thirds">
+      <div class="third defense">
+        <span class="stage">المرحلة الأولى — الدفاع عن الأساسيات</span>
+        <h3>البراعم</h3>
+        <span class="age">من 6 إلى 9 سنوات</span>
+        <ul>
+          <li>التحكم بالكرة والتوازن الحركي</li>
+          <li>الألعاب الصغيرة لبناء حب اللعبة</li>
+          <li>تمارين تنسيق حركي مرتين أسبوعيًا</li>
+        </ul>
+      </div>
+      <div class="third midfield">
+        <span class="stage">المرحلة الثانية — التحكم في الوسط</span>
+        <h3>الناشئون</h3>
+        <span class="age">من 10 إلى 13 سنة</span>
+        <ul>
+          <li>التمرير والاستحواذ الجماعي</li>
+          <li>القراءة التكتيكية المبسطة</li>
+          <li>مباريات تجريبية شهرية</li>
+        </ul>
+      </div>
+      <div class="third attack">
+        <span class="stage">المرحلة الثالثة — الحسم في الهجوم</span>
+        <h3>الشباب</h3>
+        <span class="age">من 14 إلى 17 سنة</span>
+        <ul>
+          <li>التخصص حسب المركز</li>
+          <li>التحضير البدني لكرة القدم التنافسية</li>
+          <li>عروض أمام كشافي أندية محلية</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">منهجنا</span>
+      <h2>تفاصيل تصنع الفرق داخل الملعب وخارجه</h2>
+      <p>لا نكتفي بتعليم كرة القدم، بل نبني عادات يومية تنعكس على تحصيل اللاعب الدراسي وسلوكه.</p>
+    </div>
+
+    <div class="feature-list">
+      <div class="feature">
+        <div class="icn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div>
+          <h4>مدربون مرخّصون</h4>
+          <p>جميع المدربين حاصلون على رخصة C أو B من الاتحاد، ويخضعون لتقييم فني اسبوعي.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="icn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 2v4M16 2v4M3 9h18"/></svg></div>
+        <div>
+          <h4>متابعة أسبوعية للأهل</h4>
+          <p>تقرير مختصر عن حضور اللاعب وتطور مهاراته يصل عبر واتساب كل أسبوع.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="icn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+        <div>
+          <h4>مجموعات صغيرة</h4>
+          <p>لا تتجاوز كل مجموعة 14 لاعبًا لضمان اهتمام فردي حقيقي من المدرب.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="icn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div>
+          <h4>ملاعب معتمدة</h4>
+          <p>تدريب على ملاعب عشب طبيعي وصناعي مطابقة لمواصفات الاتحاد.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coaches" id="coaches">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">طاقم التدريب</span>
+      <h2>مدربون عاشوا كرة القدم لاعبين قبل أن يعلّموها</h2>
+    </div>
+
+    <div class="coach-grid">
+      <div class="coach">
+        <div class="avatar">ك.ه</div>
+        <h4>علي منصور</h4>
+        <span class="role">المدير الفني — رخصة B</span>
+        <p>لعب في الدرجة الأولى لثمانية مواسم، ويشرف على مرحلة الشباب منذ 2019.</p>
+      </div>
+      <div class="coach">
+        <div class="avatar">س.ع</div>
+        <h4>محمود سعد</h4>
+        <span class="role">مدرب الناشئين</span>
+        <p>متخصص في التطور الحركي للأعمار 10-13، وحاصل على دبلوم إعداد اللاعبين.</p>
+      </div>
+      <div class="coach">
+        <div class="avatar">ن.ف</div>
+        <h4>علي رزق </h4>
+        <span class="role">مدرب البراعم</span>
+        <p>تُعنى بأول احتكاك للطفل بالكرة، وتصمم الألعاب التعليمية لكل حصة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" style="color:#F0D9A0">آراء الأهالي</span>
+      <h2 style="color:#F5F3EA">ما يقوله أولياء الأمور عنا</h2>
+    </div>
+    <div class="quote-grid">
+      <div class="quote">
+        <p>"ابني كان خجولًا جدًا، وبعد سنة في الأكاديمية أصبح أكثر ثقة داخل الملعب وخارجه."</p>
+        <span class="who">والد لاعب في مرحلة الناشئين</span>
+      </div>
+      <div class="quote">
+        <p>"التقارير الأسبوعية خلّتني أتابع تطور ابني بدون ما أحضر كل حصة بنفسي."</p>
+        <span class="who">والد لاعب في مرحلة البراعم</span>
+      </div>
+      <div class="quote">
+        <p>"مستوى الاحترافية في التدريب لفت انتباه كشافين من نادٍ محلي خلال سنة واحدة فقط."</p>
+        <span class="who">والد لاعب في مرحلة الشباب</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="register" id="register">
+  <div class="wrap">
+    <div class="register-box">
+      <div class="register-info">
+        <h2>سجّل ابنك في موسمنا القادم</h2>
+        <p>المقاعد محدودة في كل مجموعة عمرية. يشمل التسجيل حصة تجريبية مجانية قبل الالتزام بالموسم الكامل.</p>
+        <ul>
+          <li>حصة تجريبية مجانية لأول مرة</li>
+          <li>زي تدريب كامل عند التسجيل</li>
+          <li>تأمين صحي أثناء التدريبات</li>
+        </ul>
+      </div>
+      <form id="registerForm">
+        <div>
+          <label for="pname">اسم اللاعب</label>
+          <input type="text" id="pname" required>
+        </div>
+        <div>
+          <label for="pyear">سنة الميلاد</label>
+          <input type="number" id="pyear" min="2008" max="2020" required>
+        </div>
+        <div>
+          <label for="pphone">رقم هاتف ولي الأمر</label>
+          <input type="tel" id="pphone" required>
+        </div>
+        <div>
+          <label for="pstage">المرحلة المناسبة</label>
+          <select id="pstage" required>
+            <option value="">اختر المرحلة</option>
+            <option>البراعم (6-9)</option>
+            <option>الناشئون (10-13)</option>
+            <option>الشباب (14-17)</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="pguardian">اسم ولي الأمر</label>
+          <input type="text" id="pguardian" required>
+        </div>
+        <button type="submit" class="btn btn-primary">إرسال طلب التسجيل</button>
+        <p class="form-msg" id="formMsg">تم استلام طلبك، سيتواصل معك فريقنا خلال 24 ساعة.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4L40 12V24C40 33 33 41 24 44C15 41 8 33 8 24V12L24 4Z" stroke="#D9A441" stroke-width="2"/>
+            <path d="M24 14L18 24L24 34L30 24L24 14Z" fill="#D9A441"/>
+          </svg>
+          <span>اكاديمية الكابيتانو</span>
+        </div>
+        <p>أكاديمية معتمدة لتدريب كرة القدم للأعمار من 6 إلى 17 سنة، منذ عام 2011.</p>
+      </div>
+      <div>
+        <h5>روابط سريعة</h5>
+        <ul>
+          <li><a href="#programs">البرامج التدريبية</a></li>
+          <li><a href="#coaches">طاقم التدريب</a></li>
+          <li><a href="#register">التسجيل</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>تواصل معنا</h5>
+        <ul>
+          <li>ملعب سد خميس</li>
+          <li>01064431195</li>
+          <li>info@alsuqour-fc.example</li>
+          <li>الجمعه والثلاثاء 4 عصرا</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <span>© 2026 أكاديمية الكابيتانو لكرة القدم</span>
+      <span>جميع الحقوق محفوظة</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burgerBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const form = document.getElementById('registerForm');
+  const msg = document.getElementById('formMsg');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    msg.classList.add('show');
+    form.reset();
+  });
+</script>
+<a href="https://wa.me/01034903287" target="_blank"style="position:fixed;bottom:20px;left:20px;background-color:#25d366;color:white;padding:12px 20px;border-radius:50px;text-decoration:none; font-weight: bold;800;box-shadow:0 4px 10px rgba(0,0,0,0,3);">تواصل معنا عبر الواتس اب </a>
+
+</body>
+</html>
